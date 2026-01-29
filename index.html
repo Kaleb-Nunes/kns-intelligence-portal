@@ -3,153 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNS Intelligence | Login Corporativo</title>
+    <title>KNS Intelligence | Secure Access</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
     <style>
-        /* --- ESTILO GERAL --- */
+        /* --- CORE VISUALS --- */
+        :root {
+            --neon-blue: #00E5FF;
+            --neon-error: #ff4d4d;
+            --neon-success: #2ecc71;
+            --bg-glass: rgba(16, 18, 20, 0.95);
+            --border-color: #333;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
         body {
             background-color: #050505;
             background-image: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            color: #ffffff; overflow: hidden;
         }
 
-        /* Grade de Fundo (Efeito Tech) */
+        /* Grade de Fundo Cibernética */
         body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
                         linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
+            background-size: 50px 50px; z-index: -1;
+            animation: pulseGrid 10s infinite alternate;
         }
+        @keyframes pulseGrid { from { opacity: 0.5; } to { opacity: 1; } }
 
-        /* --- CARD DE LOGIN --- */
+        /* --- CARD DE LOGIN MASTER --- */
         .login-card {
-            background: rgba(16, 18, 20, 0.95);
-            width: 400px;
-            padding: 40px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            position: relative;
-            backdrop-filter: blur(10px);
-            transition: transform 0.1s;
+            background: var(--bg-glass); width: 420px; padding: 45px;
+            border-radius: 12px; border: 1px solid var(--border-color);
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+            text-align: center; position: relative; backdrop-filter: blur(12px);
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
-        /* Animação de Erro (Shake) */
-        .shake { animation: shake 0.4s ease-in-out; border-color: #ff4d4d; }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
-
-        /* Barra Neon Superior */
-        .neon-bar {
-            height: 3px; background: #00E5FF; width: 100%; 
-            position: absolute; top: 0; left: 0; 
-            box-shadow: 0 0 15px #00E5FF;
-        }
-
-        h1 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 5px; letter-spacing: 1px; }
-        h1 span { color: #00E5FF; font-weight: 800; }
-        p.subtitle { color: #666; font-size: 11px; letter-spacing: 1px; margin-bottom: 30px; text-transform: uppercase; font-weight: 600; }
-
-        /* --- INPUTS --- */
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; color: #888; font-size: 11px; margin-bottom: 6px; font-weight: 600; text-transform: uppercase;}
         
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 4px;
-            outline: none;
-            font-size: 14px;
+        .shake { animation: shake 0.4s ease-in-out; border-color: var(--neon-error); }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+        .neon-bar {
+            height: 2px; background: var(--neon-blue); width: 100%; 
+            position: absolute; top: 0; left: 0; 
+            box-shadow: 0 0 15px var(--neon-blue);
+            border-radius: 12px 12px 0 0;
+        }
+
+        h1 { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: -1px; }
+        h1 span { color: var(--neon-blue); }
+        p.subtitle { color: #666; font-size: 11px; letter-spacing: 2px; margin-bottom: 40px; text-transform: uppercase; font-weight: 600; }
+
+        /* --- INPUTS FLUTUANTES (FLOATING LABELS) --- */
+        .input-group { position: relative; margin-bottom: 25px; text-align: left; }
+        
+        .input-field {
+            width: 100%; padding: 15px 15px 15px 45px; /* Espaço para ícone */
+            background: #0a0a0a; border: 1px solid var(--border-color);
+            color: #fff; border-radius: 6px; outline: none; font-size: 14px;
             transition: 0.3s;
         }
         
-        input[type="text"]:focus, input[type="password"]:focus {
-            border-color: #00E5FF;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+        /* Ícones dentro do input */
+        .input-icon {
+            position: absolute; left: 15px; top: 16px; color: #555; font-size: 16px; transition: 0.3s;
         }
 
-        /* Classe de Erro no Input */
-        input.input-error { border-color: #ff4d4d; }
+        /* Label que flutua */
+        .floating-label {
+            position: absolute; left: 45px; top: 15px; color: #666; font-size: 13px;
+            pointer-events: none; transition: 0.3s ease all;
+        }
 
-        /* --- CHECKBOX LGPD --- */
+        /* Efeitos de Foco (A Mágica) */
+        .input-field:focus, .input-field:not(:placeholder-shown) {
+            border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+            padding-top: 22px; padding-bottom: 8px;
+        }
+        
+        /* Move o label pra cima e o ícone fica azul */
+        .input-field:focus ~ .floating-label, .input-field:not(:placeholder-shown) ~ .floating-label {
+            top: 5px; left: 45px; font-size: 10px; color: var(--neon-blue); font-weight: 700; text-transform: uppercase;
+        }
+        .input-field:focus ~ .input-icon { color: var(--neon-blue); }
+
+        /* Toggle de Senha (Olho) */
+        .toggle-pass {
+            position: absolute; right: 15px; top: 15px; color: #555; cursor: pointer; transition: 0.3s;
+        }
+        .toggle-pass:hover { color: #fff; }
+
+        /* --- CHECKBOX CUSTOMIZADO --- */
         .terms-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin: 20px 0;
-            text-align: left;
-            padding: 10px;
-            background: rgba(255,255,255,0.03); 
-            border-radius: 4px;
-            border: 1px solid #222;
-            cursor: pointer;
+            display: flex; align-items: center; gap: 12px; margin: 10px 0 30px 0;
+            text-align: left; padding: 12px; background: rgba(255,255,255,0.02); 
+            border-radius: 6px; border: 1px solid var(--border-color); cursor: pointer;
+            transition: 0.3s;
         }
-        .terms-container:hover { background: rgba(255,255,255,0.05); }
+        .terms-container:hover { background: rgba(255,255,255,0.05); border-color: #444; }
+        .terms-container.active { border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.05); }
 
-        input[type="checkbox"] {
-            width: 16px; height: 16px; accent-color: #00E5FF; cursor: pointer; margin-top: 2px;
+        input[type="checkbox"] { 
+            appearance: none; width: 18px; height: 18px; border: 2px solid #555; border-radius: 4px; 
+            cursor: pointer; position: relative; transition: 0.2s;
+        }
+        input[type="checkbox"]:checked { background: var(--neon-blue); border-color: var(--neon-blue); }
+        input[type="checkbox"]:checked::after {
+            content: '✔'; position: absolute; color: #000; font-size: 12px; left: 3px; top: -1px; font-weight: bold;
         }
 
-        .terms-text { font-size: 11px; color: #aaa; line-height: 1.4; cursor: pointer; }
-        .terms-text a { color: #00E5FF; text-decoration: none; }
-        .terms-text a:hover { text-decoration: underline; }
+        .terms-text { font-size: 11px; color: #888; line-height: 1.4; user-select: none; }
+        .terms-text a { color: var(--neon-blue); text-decoration: none; font-weight: 600; }
 
         /* --- BOTÃO DE LOGIN --- */
         .btn-login {
-            width: 100%;
-            padding: 14px;
-            background: #00E5FF;
-            color: #000;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: 0.3s;
+            width: 100%; padding: 16px; background: #222; color: #555; border: none;
+            border-radius: 6px; font-weight: 700; font-size: 13px; text-transform: uppercase;
+            letter-spacing: 1.5px; cursor: not-allowed; transition: all 0.4s;
             display: flex; justify-content: center; align-items: center; gap: 10px;
         }
-
-        .btn-login:hover {
-            background: #fff;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+        
+        /* Estado Habilitado */
+        .btn-login.enabled {
+            background: var(--neon-blue); color: #000; cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+        }
+        .btn-login.enabled:hover {
+            background: #fff; box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); transform: translateY(-2px);
         }
 
-        /* Estado Bloqueado */
-        .btn-login:disabled {
-            background: #222;
-            color: #555;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        /* Mensagem de Erro Flutuante */
-        #error-msg {
-            display: none;
-            color: #ff4d4d;
-            font-size: 12px;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        .footer-tech { margin-top: 25px; font-size: 10px; color: #444; border-top: 1px solid #222; padding-top: 20px; }
-
+        /* Footer */
+        .footer-tech { margin-top: 30px; font-size: 9px; color: #444; border-top: 1px solid #222; padding-top: 20px; font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
 <body>
@@ -157,25 +147,28 @@
     <div class="login-card" id="card">
         <div class="neon-bar"></div>
 
-        <h1>KNS <span>INTELLIGENCE</span></h1>
-        <p class="subtitle">Continuity Engineering Portal</p>
+        <h1>KNS <span>INTEL</span></h1>
+        <p class="subtitle">Secure Engineering Portal v4.0</p>
 
         <form onsubmit="handleLogin(event)">
             
             <div class="input-group">
-                <label>ID Corporativo / E-mail</label>
-                <input type="text" id="user" placeholder="ex: usuario@escalasoft.com.br" required>
+                <input type="text" id="user" class="input-field" placeholder=" " required>
+                <i class="fa-regular fa-user input-icon"></i>
+                <label class="floating-label">ID Corporativo / E-mail</label>
             </div>
 
             <div class="input-group">
-                <label>Chave de Acesso</label>
-                <input type="password" id="pass" placeholder="•••••••••••••" required>
+                <input type="password" id="pass" class="input-field" placeholder=" " required>
+                <i class="fa-solid fa-lock input-icon"></i>
+                <label class="floating-label">Chave de Acesso</label>
+                <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword()"></i>
             </div>
 
-            <div class="terms-container" onclick="toggleCheckbox()">
-                <input type="checkbox" id="lgpd-check" onchange="checkState()" onclick="event.stopPropagation()">
+            <div class="terms-container" id="terms-box" onclick="toggleTerms()">
+                <input type="checkbox" id="lgpd-check" onclick="event.stopPropagation(); checkState()">
                 <label class="terms-text">
-                    Li e concordo com as políticas de <a href="terms.html" target="_blank">Segurança & Compliance</a>.
+                    Li e concordo com os protocolos de <a href="terms.html" target="_blank">Segurança & Compliance</a>.
                 </label>
             </div>
 
@@ -183,101 +176,117 @@
                 <i class="fa-solid fa-lock"></i> Aguardando Aceite
             </button>
 
-            <div id="error-msg"><i class="fa-solid fa-circle-exclamation"></i> Credenciais Inválidas</div>
         </form>
 
         <div class="footer-tech">
-            POWERED BY <strong>PROTOCOL 09</strong><br>
-            SECURE CONNECTION | TLS 1.3 ENCRYPTED
+            POWERED BY <strong>PROTOCOL 09</strong> | TLS 1.3 ENCRYPTED<br>
+            BALNEÁRIO CAMBORIÚ - SC
         </div>
     </div>
 
     <script>
-        // --- 1. VERIFICAÇÃO AUTOMÁTICA (Ao carregar a página) ---
-        document.addEventListener('DOMContentLoaded', checkState);
+        // --- 1. LÓGICA DE INICIALIZAÇÃO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verifica se o navegador salvou o checkbox marcado
+            const checkbox = document.getElementById('lgpd-check');
+            if (checkbox.checked) checkState();
+        });
 
-        // Função para facilitar o clique na div do termo
-        function toggleCheckbox() {
+        // --- 2. CONTROLE DE SENHA (OLHO MÁGICO) ---
+        function togglePassword() {
+            const passInput = document.getElementById('pass');
+            const icon = document.querySelector('.toggle-pass');
+            
+            if (passInput.type === "password") {
+                passInput.type = "text";
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = "password";
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // --- 3. CONTROLE DO CHECKBOX E BOTÃO ---
+        function toggleTerms() {
             const checkbox = document.getElementById('lgpd-check');
             checkbox.checked = !checkbox.checked;
             checkState();
         }
 
-        // Função que libera ou bloqueia o botão
         function checkState() {
             const checkbox = document.getElementById('lgpd-check');
-            const button = document.getElementById('btn-submit');
+            const box = document.getElementById('terms-box');
+            const btn = document.getElementById('btn-submit');
             
             if (checkbox.checked) {
-                // DESBLOQUEIA
-                button.disabled = false;
-                button.innerHTML = "Acessar Command Center <i class='fa-solid fa-arrow-right'></i>";
-                button.style.background = "#00E5FF";
-                button.style.color = "#000";
+                // Estado HABILITADO
+                box.classList.add('active');
+                btn.disabled = false;
+                btn.classList.add('enabled');
+                btn.innerHTML = "Acessar Sistema <i class='fa-solid fa-arrow-right'></i>";
             } else {
-                // BLOQUEIA
-                button.disabled = true;
-                button.innerHTML = '<i class="fa-solid fa-lock"></i> Aguardando Aceite';
-                button.style.background = "#222";
-                button.style.color = "#555";
+                // Estado DESABILITADO
+                box.classList.remove('active');
+                btn.disabled = true;
+                btn.classList.remove('enabled');
+                btn.innerHTML = '<i class="fa-solid fa-lock"></i> Aguardando Aceite';
             }
         }
 
-        // --- 2. LÓGICA DE LOGIN (Processamento) ---
+        // --- 4. LÓGICA DE AUTENTICAÇÃO REAL ---
         function handleLogin(event) {
-            event.preventDefault(); // Impede recarregar página
+            event.preventDefault();
 
-            const user = document.getElementById('user').value;
-            const pass = document.getElementById('pass').value;
+            const user = document.getElementById('user');
+            const pass = document.getElementById('pass');
             const btn = document.getElementById('btn-submit');
             const card = document.getElementById('card');
-            const errorMsg = document.getElementById('error-msg');
-            const passInput = document.getElementById('pass');
 
-            // Resetar estados de erro
+            // Reset visual
             card.classList.remove('shake');
-            errorMsg.style.display = 'none';
-            passInput.classList.remove('input-error');
+            user.style.borderColor = "#333";
+            pass.style.borderColor = "#333";
 
-            // Efeito de "Pensando" (Loading)
+            // Simula Validação
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Autenticando...';
-            btn.style.opacity = "0.8";
-            btn.style.cursor = "wait";
-            
-            // Simula delay de rede (1.5 segundos)
-            setTimeout(() => {
-                
-                // REGRA DE LOGIN: Precisa ter pelo menos 3 letras no usuário e na senha
-                if(user.length >= 3 && pass.length >= 3) {
-                    
-                    // SUCESSO:
-                    btn.innerHTML = '<i class="fa-solid fa-check"></i> Acesso Permitido';
-                    btn.style.background = "#2ecc71"; // Verde
-                    
-                    // IMPORTANTE: Cria a sessão que o Dashboard exige
-                    localStorage.setItem('kns_session', 'active');
-                    localStorage.setItem('kns_user', user);
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Validando Credenciais...';
+            btn.style.opacity = "0.9";
 
-                    // Redireciona para o Painel
-                    setTimeout(() => {
-                        window.location.href = 'dashboard.html';
-                    }, 500);
+            setTimeout(() => {
+                // REGRA: Usuário e Senha precisam ter mais de 3 dígitos
+                if (user.value.length > 3 && pass.value.length > 3) {
+                    
+                    // SUCESSO
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i> AUTORIZADO';
+                    btn.style.background = "#2ecc71";
+                    btn.style.color = "#000";
+                    btn.style.boxShadow = "0 0 30px rgba(46, 204, 113, 0.5)";
+                    
+                    // Salva Sessão Real
+                    localStorage.setItem('kns_session', 'active');
+                    localStorage.setItem('kns_user', user.value);
+
+                    // Redireciona
+                    setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
 
                 } else {
-                    // ERRO:
+                    // ERRO (Feedback visual forte)
                     btn.innerHTML = originalText;
                     btn.style.opacity = "1";
-                    btn.style.cursor = "pointer";
                     
-                    // Efeitos visuais de erro
                     card.classList.add('shake'); // Treme a tela
-                    errorMsg.style.display = 'block'; // Mostra texto vermelho
-                    passInput.value = ''; // Limpa a senha
-                    passInput.classList.add('input-error'); // Borda vermelha
+                    
+                    // Destaca os campos com erro em vermelho neon
+                    user.style.borderColor = "#ff4d4d";
+                    pass.style.borderColor = "#ff4d4d";
+                    pass.value = ""; // Limpa a senha
+                    
+                    // Foca no usuário novamente
+                    user.focus();
                 }
-
-            }, 1500);
+            }, 1500); // 1.5s de delay dramático
         }
     </script>
 
