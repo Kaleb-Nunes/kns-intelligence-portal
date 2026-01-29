@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNS Intelligence | Secure Access</title>
+    <title>KNS Intelligence | Acesso Seguro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
@@ -187,7 +187,6 @@
     <script>
         // --- 1. LÓGICA DE INICIALIZAÇÃO ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Verifica se o navegador salvou o checkbox marcado
             const checkbox = document.getElementById('lgpd-check');
             if (checkbox.checked) checkState();
         });
@@ -221,13 +220,11 @@
             const btn = document.getElementById('btn-submit');
             
             if (checkbox.checked) {
-                // Estado HABILITADO
                 box.classList.add('active');
                 btn.disabled = false;
                 btn.classList.add('enabled');
                 btn.innerHTML = "Acessar Sistema <i class='fa-solid fa-arrow-right'></i>";
             } else {
-                // Estado DESABILITADO
                 box.classList.remove('active');
                 btn.disabled = true;
                 btn.classList.remove('enabled');
@@ -255,7 +252,7 @@
             btn.style.opacity = "0.9";
 
             setTimeout(() => {
-                // REGRA: Usuário e Senha precisam ter mais de 3 dígitos
+                // REGRA: Usuário e Senha precisam ter mais de 3 dígitos para entrar
                 if (user.value.length > 3 && pass.value.length > 3) {
                     
                     // SUCESSO
@@ -264,11 +261,11 @@
                     btn.style.color = "#000";
                     btn.style.boxShadow = "0 0 30px rgba(46, 204, 113, 0.5)";
                     
-                    // Salva Sessão Real
+                    // Salva Sessão Real para o Dashboard usar
                     localStorage.setItem('kns_session', 'active');
                     localStorage.setItem('kns_user', user.value);
 
-                    // Redireciona
+                    // Redireciona para a página principal
                     setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
 
                 } else {
@@ -286,7 +283,7 @@
                     // Foca no usuário novamente
                     user.focus();
                 }
-            }, 1500); // 1.5s de delay dramático
+            }, 1500); 
         }
     </script>
 
