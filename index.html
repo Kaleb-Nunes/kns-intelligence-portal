@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNS Intelligence | Secure Access</title>
+    <title>KNS Intelligence | Login Seguro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
@@ -11,36 +11,29 @@
         :root { --neon-blue: #00E5FF; --bg-glass: rgba(16, 18, 20, 0.95); --border: #333; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: #050505; background-image: radial-gradient(circle at 50% 50%, #111 0%, #000 100%); height: 100vh; display: flex; justify-content: center; align-items: center; color: #fff; overflow: hidden; }
-        body::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; }
         
-        .login-card { background: var(--bg-glass); width: 420px; padding: 45px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 0 60px rgba(0,0,0,0.9); text-align: center; position: relative; backdrop-filter: blur(12px); }
-        .neon-bar { height: 2px; background: var(--neon-blue); width: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 0 15px var(--neon-blue); border-radius: 12px 12px 0 0; }
+        .login-card { background: var(--bg-glass); width: 420px; padding: 45px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 0 60px rgba(0,0,0,0.9); text-align: center; position: relative; }
+        .neon-bar { height: 3px; background: var(--neon-blue); width: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 0 15px var(--neon-blue); }
         
-        h1 { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 5px; letter-spacing: -1px; }
+        h1 { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; margin-bottom: 5px; }
         h1 span { color: var(--neon-blue); }
         p.subtitle { color: #666; font-size: 11px; letter-spacing: 2px; margin-bottom: 40px; text-transform: uppercase; font-weight: 600; }
 
         .input-group { position: relative; margin-bottom: 25px; text-align: left; }
         .input-field { width: 100%; padding: 15px 15px 15px 45px; background: #0a0a0a; border: 1px solid var(--border); color: #fff; border-radius: 6px; outline: none; font-size: 14px; transition: 0.3s; }
-        .input-icon { position: absolute; left: 15px; top: 16px; color: #555; font-size: 16px; transition: 0.3s; }
+        .input-icon { position: absolute; left: 15px; top: 16px; color: #555; font-size: 16px; }
         .input-field:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1); }
-        .input-field:focus ~ .input-icon { color: var(--neon-blue); }
 
-        .terms-container { display: flex; align-items: center; gap: 12px; margin: 10px 0 30px 0; text-align: left; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid var(--border); cursor: pointer; transition: 0.3s; }
+        .terms-container { display: flex; align-items: center; gap: 12px; margin: 10px 0 30px 0; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
         .terms-container:hover { border-color: #555; }
         .terms-container.active { border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.05); }
         
-        input[type="checkbox"] { accent-color: var(--neon-blue); width: 16px; height: 16px; cursor: pointer; }
-        .terms-text { font-size: 11px; color: #888; user-select: none; }
-        .terms-text a { color: var(--neon-blue); text-decoration: none; font-weight: 600; }
-
-        .btn-login { width: 100%; padding: 16px; background: #222; color: #555; border: none; border-radius: 6px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; cursor: not-allowed; transition: all 0.4s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-login { width: 100%; padding: 16px; background: #222; color: #555; border: none; border-radius: 6px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; cursor: not-allowed; transition: all 0.3s; }
         .btn-login.enabled { background: var(--neon-blue); color: #000; cursor: pointer; box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); }
-        .btn-login.enabled:hover { background: #fff; transform: translateY(-2px); }
-        
+        .btn-login.enabled:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); }
+
         .shake { animation: shake 0.4s ease-in-out; border-color: #ff4d4d; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        
         .footer-tech { margin-top: 30px; font-size: 9px; color: #444; border-top: 1px solid #222; padding-top: 20px; font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
@@ -50,18 +43,18 @@
         <h1>KNS <span>INTEL</span></h1>
         <p class="subtitle">Secure Engineering Portal v5.0</p>
 
-        <form onsubmit="handleLogin(event)">
+        <form onsubmit="tryLogin(event)">
             <div class="input-group">
                 <input type="text" id="user" class="input-field" placeholder="ID Corporativo" required>
                 <i class="fa-regular fa-user input-icon"></i>
             </div>
             <div class="input-group">
-                <input type="password" id="pass" class="input-field" placeholder="Chave de Acesso" required>
+                <input type="password" id="pass" class="input-field" placeholder="Senha" required>
                 <i class="fa-solid fa-lock input-icon"></i>
             </div>
             <div class="terms-container" id="terms-box" onclick="toggleTerms()">
                 <input type="checkbox" id="lgpd-check" onclick="event.stopPropagation(); checkState()">
-                <label class="terms-text">Li e concordo com os protocolos de <a href="#">Segurança & Compliance</a>.</label>
+                <label style="font-size: 11px; color: #888; cursor: pointer;">Li e concordo com as políticas de Compliance.</label>
             </div>
             <button type="submit" id="btn-submit" class="btn-login" disabled><i class="fa-solid fa-lock"></i> Aguardando Aceite</button>
         </form>
@@ -69,12 +62,7 @@
     </div>
 
     <script>
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            const checkbox = document.getElementById('lgpd-check');
-            if (checkbox.checked) checkState();
-        });
-
+        // --- Lógica Simples e Direta ---
         function toggleTerms() {
             const checkbox = document.getElementById('lgpd-check');
             checkbox.checked = !checkbox.checked;
@@ -99,7 +87,7 @@
             }
         }
 
-        function handleLogin(event) {
+        function tryLogin(event) {
             event.preventDefault();
             const user = document.getElementById('user');
             const pass = document.getElementById('pass');
@@ -112,33 +100,27 @@
             pass.style.borderColor = "#333";
 
             // Loading
-            const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Validando...';
-            btn.style.opacity = "0.9";
-
+            
             setTimeout(() => {
-                // Validação Simples (Tamanho > 3)
+                // Validação: Mínimo 3 caracteres
                 if (user.value.length > 3 && pass.value.length > 3) {
                     btn.innerHTML = '<i class="fa-solid fa-check"></i> SUCESSO';
                     btn.style.background = "#2ecc71";
                     btn.style.color = "#000";
                     
-                    // CRIA A SESSÃO
+                    // CRIA A SESSÃO E REDIRECIONA
                     localStorage.setItem('kns_session', 'active');
-                    localStorage.setItem('kns_user', user.value);
-
-                    // REDIRECIONA
-                    setTimeout(() => { window.location.href = 'dashboard.html'; }, 800);
+                    window.location.href = 'dashboard.html';
                 } else {
-                    btn.innerHTML = originalText;
-                    btn.style.opacity = "1";
+                    btn.innerHTML = "Acessar Sistema <i class='fa-solid fa-arrow-right'></i>";
                     card.classList.add('shake');
                     user.style.borderColor = "#ff4d4d";
                     pass.style.borderColor = "#ff4d4d";
                     pass.value = "";
                     user.focus();
                 }
-            }, 1200);
+            }, 1000);
         }
     </script>
 </body>
