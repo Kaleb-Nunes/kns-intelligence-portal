@@ -303,6 +303,7 @@
                         <div><span style="display:block; color:#666; font-size:10px; text-transform:uppercase;">Departamento</span><span style="color:#ddd;">Engenharia de Dados</span></div>
                         <div><span style="display:block; color:#666; font-size:10px; text-transform:uppercase;">Matrícula</span><span style="color:#ddd;">KNS-99021</span></div>
                         <div><span style="display:block; color:#666; font-size:10px; text-transform:uppercase;">Unidade</span><span style="color:#ddd;">Balneário Camboriú - SC</span></div>
+                        <div><span style="display:block; color:#666; font-size:10px; text-transform:uppercase;">Gestor Imediato</span><span style="color:#ddd;">Board de Sócios</span></div>
                     </div>
                 </div>
             </div>
@@ -379,6 +380,16 @@
     </div>
 
     <script>
+        // --- 1. GATEKEEPER (TRAVA DE SEGURANÇA) ---
+        // Verifica se o usuário tem a chave de sessão. Se não tiver, manda pro login.
+        document.addEventListener('DOMContentLoaded', () => {
+            const session = localStorage.getItem('kns_session');
+            if (!session) {
+                console.log("Acesso negado: Sessão não encontrada.");
+                window.location.href = 'index.html';
+            }
+        });
+
         // NAVEGAÇÃO SPA
         function navigate(viewId) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
