@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNS Intelligence Portal | Acesso Restrito</title>
+    <style>
+        /* RESET E CONFIGURAÇÕES BÁSICAS */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* FUNDO ESCURO PROFISSIONAL (Estilo Enterprise) */
+        body {
+            background-color: #050505; /* Preto quase absoluto */
+            background-image: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* EFEITO DE "GRID" NO FUNDO (Para parecer técnico) */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* A CAIXA DE LOGIN (CARD) */
+        .login-card {
+            background: rgba(20, 20, 20, 0.9);
+            width: 400px;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.05); /* Brilho sutil Neon */
+            text-align: center;
+            position: relative;
+        }
+
+        /* BARRA SUPERIOR NEON (Assinatura KNS) */
+        .login-card::top {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: #00E5FF; /* Seu Cyan Neon */
+            box-shadow: 0 0 10px #00E5FF;
+        }
+
+        /* LOGO E TÍTULO */
+        h1 {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        h1 span { color: #00E5FF; font-weight: 700; } /* KNS em Destaque */
+        
+        p.subtitle {
+            color: #666;
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        /* CAMPOS DE INPUT */
+        .input-group { text-align: left; margin-bottom: 20px; }
+        
+        label {
+            display: block;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            color: #00E5FF;
+            border-radius: 4px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #00E5FF;
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+        }
+
+        /* BOTÃO DE ACESSO */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #00E5FF;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+        }
+
+        /* RODAPÉ DO CARD */
+        .footer-tech {
+            margin-top: 30px;
+            font-size: 10px;
+            color: #444;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div style="height: 2px; background: #00E5FF; width: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 0 15px #00E5FF;"></div>
+
+        <h1>KNS <span>INTELLIGENCE</span></h1>
+        <p class="subtitle">CONTINUITY ENGINEERING PORTAL</p>
+
+        <form action="dashboard.html"> <div class="input-group">
+                <label>ID CORPORATIVO</label>
+                <input type="text" placeholder="ex: usuario@escalasoft.com.br" required>
+            </div>
+
+            <div class="input-group">
+                <label>CHAVE DE ACESSO</label>
+                <input type="password" placeholder="•••••••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-login">Acessar Command Center</button>
+        </form>
+
+        <div class="footer-tech">
+            POWERED BY <strong>PROTOCOL 09</strong><br>
+            SECURE CONNECTION | TLS 1.3 ENCRYPTED
+        </div>
+    </div>
+
+</body>
+</html>
