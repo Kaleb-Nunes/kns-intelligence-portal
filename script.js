@@ -1,10 +1,12 @@
-/* KNS INTELLIGENCE PORTAL - MASTER CONTROLLER v4.0 */
+/* KNS ENTERPRISE SYSTEM - CORE CONTROLLER v5.0 (FINAL) */
 
 const app = {
-    // --- FUNÇÕES DE INICIALIZAÇÃO ---
+    // --- 1. INICIALIZAÇÃO INTELIGENTE ---
     init: function() {
-        // Verifica em qual página estamos
-        const isLoginPage = document.getElementById('login-form');
+        console.log("KNS System: Initializing...");
+        
+        // Identifica em qual página estamos
+        const isLoginPage = document.getElementById('login-card');
         const isDashboard = document.querySelector('.sidebar');
 
         if (isLoginPage) {
@@ -14,21 +16,18 @@ const app = {
         }
     },
 
-    // --- LÓGICA DE LOGIN (INDEX.HTML) ---
+    // ============================================================
+    // LÓGICA DE LOGIN (INDEX)
+    // ============================================================
     initLogin: function() {
-        // Checagem automática do Checkbox
+        // Checagem de "Lembrar de mim" ou estado do checkbox
         const checkbox = document.getElementById('lgpd-check');
         if (checkbox && checkbox.checked) this.checkLoginState();
 
         // Listeners
-        const termsBox = document.getElementById('terms-box');
-        if(termsBox) termsBox.addEventListener('click', () => this.toggleTerms());
-
-        const togglePass = document.getElementById('toggle-pass');
-        if(togglePass) togglePass.addEventListener('click', () => this.togglePassword());
-
-        const form = document.getElementById('login-form');
-        if(form) form.addEventListener('submit', (e) => this.handleLoginSubmit(e));
+        document.getElementById('toggle-pass').addEventListener('click', () => this.togglePassword());
+        document.getElementById('terms-box').addEventListener('click', () => this.toggleTerms());
+        document.getElementById('login-form').addEventListener('submit', (e) => this.handleLoginSubmit(e));
     },
 
     toggleTerms: function() {
@@ -77,20 +76,26 @@ const app = {
         const card = document.getElementById('login-card');
         const originalText = btn.innerHTML;
 
+        // Reset Visual
         card.classList.remove('shake');
         user.style.borderColor = "#333";
         pass.style.borderColor = "#333";
 
-        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Validando...';
+        // Loading
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Validando Credenciais...';
         btn.style.opacity = "0.9";
 
         setTimeout(() => {
+            // REGRA: Usuário > 3 chars e Senha > 3 chars
             if (user.value.length > 3 && pass.value.length > 3) {
                 btn.innerHTML = '<i class="fa-solid fa-check"></i> SUCESSO';
                 btn.style.background = "#2ecc71";
                 btn.style.color = "#000";
+                
+                // CRIA A SESSÃO
                 localStorage.setItem('kns_session', 'active');
                 localStorage.setItem('kns_user', user.value);
+                
                 setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
             } else {
                 btn.innerHTML = originalText;
@@ -104,39 +109,45 @@ const app = {
         }, 1500);
     },
 
-    // --- LÓGICA DE DASHBOARD (DASHBOARD.HTML) ---
+    // ============================================================
+    // LÓGICA DE DASHBOARD (SISTEMA)
+    // ============================================================
     initDashboard: function() {
-        // Gatekeeper (Segurança)
+        // Gatekeeper (Segurança de Sessão)
         const session = localStorage.getItem('kns_session');
         if (!session) {
+            console.warn("Acesso negado: Redirecionando para login.");
             window.location.href = 'index.html';
             return;
         }
-        console.log("KNS Secure: Session Validated");
+        console.log("KNS Secure: Session Active");
     },
 
     navigate: function(viewId) {
+        // Remove active de tudo
         document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         
+        // Adiciona active no alvo
         const view = document.getElementById('view-' + viewId);
         if(view) view.classList.add('active');
         
         const nav = document.getElementById('nav-' + viewId);
         if(nav) nav.classList.add('active');
         
+        // Fecha menu se estiver aberto
         const menu = document.getElementById('user-menu');
         if(menu) menu.style.display = 'none';
     },
 
     toggleMenu: function() {
         const menu = document.getElementById('user-menu');
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
     },
 
     logout: function() {
-        // Feedback visual no botão que foi clicado
         const items = document.querySelectorAll('.dropdown-item');
+        // Acha o botão de sair e muda o texto
         items.forEach(item => {
             if(item.textContent.includes('Sair')) item.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saindo...';
         });
@@ -145,7 +156,7 @@ const app = {
         setTimeout(() => { window.location.href = 'index.html'; }, 800);
     },
 
-    // --- MODAIS ---
+    // --- SISTEMA DE MODAIS ---
     openModal: function(modalId) {
         const modal = document.getElementById(modalId);
         if(modal) modal.style.display = 'flex';
@@ -156,14 +167,15 @@ const app = {
         if(modal) modal.style.display = 'none';
     },
 
+    // Wrappers específicos para os botões do menu
     openProfileModal: function() {
         this.openModal('modal-profile');
-        this.toggleMenu();
+        this.toggleMenu(); // Fecha o dropdown
     },
 
     openConfigModal: function() {
         this.openModal('modal-config');
-        this.toggleMenu();
+        this.toggleMenu(); // Fecha o dropdown
     },
 
     openServiceModal: function(type) {
@@ -183,7 +195,7 @@ const app = {
         }
     },
 
-    // --- PERFIL EDITÁVEL ---
+    // --- LÓGICA DE EDIÇÃO DE PERFIL ---
     enableEditMode: function() {
         const fields = ['input-role', 'input-dept', 'input-email', 'input-phone'];
         fields.forEach(id => {
@@ -248,5 +260,5 @@ const app = {
     }
 };
 
-// INICIALIZA O APP
+// Inicializa o sistema quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => app.init());
