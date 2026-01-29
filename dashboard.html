@@ -7,11 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        :root { --bg-body: #101214; --bg-sidebar: #1b1d21; --bg-panel: #212429; --border-color: #2e3238; --primary: #00E5FF; --accent-green: #2ecc71; --accent-orange: #f39c12; --accent-red: #e74c3c; --text-main: #e6e8eb; --text-muted: #9499a3; }
+        /* CSS ENTERPRISE ROBUSTO */
+        :root { --bg-body: #101214; --bg-sidebar: #1b1d21; --bg-panel: #212429; --border: #2e3238; --primary: #00E5FF; --accent-green: #2ecc71; --accent-orange: #f39c12; --accent-red: #e74c3c; --text-main: #e6e8eb; --text-muted: #9499a3; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-body); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
         
-        .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 15px; }
+        .sidebar { width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 15px; }
         .brand-area { padding: 15px 0 30px 0; font-size: 18px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
         .brand-area span { color: var(--primary); }
         .nav-label { font-size: 10px; text-transform: uppercase; color: #555; margin: 15px 0 5px 10px; font-weight: 700; letter-spacing: 0.5px; }
@@ -20,15 +21,18 @@
         .nav-item i { width: 20px; margin-right: 10px; text-align: center; }
 
         .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .topbar { height: 60px; background: var(--bg-panel); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
-        .search-global { background: var(--bg-body); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 4px; width: 400px; color: #fff; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+        .topbar { height: 60px; background: var(--bg-panel); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
+        .search-global { background: var(--bg-body); border: 1px solid var(--border); padding: 8px 15px; border-radius: 4px; width: 400px; color: #fff; display: flex; align-items: center; gap: 10px; font-size: 13px; }
         .search-global input { background: transparent; border: none; outline: none; color: #fff; width: 100%; }
         .user-actions { display: flex; align-items: center; gap: 20px; }
+        
+        /* Dropdown Expert */
         .user-dropdown-container { position: relative; }
-        .avatar { width: 35px; height: 35px; background: #333; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; cursor: pointer; border: 1px solid var(--border-color); overflow: hidden; }
+        .avatar { width: 35px; height: 35px; background: #333; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; cursor: pointer; border: 1px solid var(--border); overflow: hidden; }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; width: 220px; background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 999; }
-        .dropdown-item { padding: 12px 15px; border-bottom: 1px solid var(--border-color); font-size: 12px; color: var(--text-muted); cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 10px; }
+        .dropdown-menu { display: none; position: absolute; top: 45px; right: 0; width: 220px; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 9999; }
+        .dropdown-menu.show { display: block; } /* Classe auxiliar para garantir display */
+        .dropdown-item { padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 12px; color: var(--text-muted); cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 10px; }
         .dropdown-item:hover { background: #2a2e35; color: #fff; }
 
         .content-area { flex: 1; padding: 30px; overflow-y: auto; background: var(--bg-body); }
@@ -36,58 +40,59 @@
         .view-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Componentes UI */
         .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
-        .kpi-card { padding: 20px; border-radius: 6px; color: #fff; position: relative; overflow: hidden; height: 120px; background: var(--bg-panel); border: 1px solid var(--border-color); }
+        .kpi-card { padding: 20px; border-radius: 6px; color: #fff; position: relative; overflow: hidden; height: 120px; background: var(--bg-panel); border: 1px solid var(--border); }
         .kpi-value { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
         .kpi-label { font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 0.5px; }
-
+        
         .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .data-table th { text-align: left; padding: 12px; background: #1a1c21; color: #fff; border-bottom: 2px solid var(--border-color); }
-        .data-table td { padding: 12px; border-bottom: 1px solid var(--border-color); color: var(--text-muted); }
-        .data-table tr:hover { background: #1a1c21; cursor: pointer; }
+        .data-table th { text-align: left; padding: 12px; background: #1a1c21; color: #fff; border-bottom: 2px solid var(--border); }
+        .data-table td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--text-muted); }
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
         .bg-new { background: rgba(0, 229, 255, 0.1); color: var(--primary); }
         .bg-wait { background: rgba(243, 156, 18, 0.1); color: var(--accent-orange); }
-        .bg-done { background: rgba(46, 204, 113, 0.1); color: var(--accent-green); }
-
-        .form-label { display: block; color: var(--text-muted); font-size: 11px; font-weight: 600; margin-bottom: 5px; }
-        .form-control { width: 100%; padding: 10px; background: #16181c; border: 1px solid var(--border-color); color: #fff; border-radius: 4px; font-size: 13px; outline: none; margin-bottom: 15px; }
+        
+        .form-control { width: 100%; padding: 10px; background: #16181c; border: 1px solid var(--border); color: #fff; border-radius: 4px; font-size: 13px; outline: none; margin-bottom: 15px; }
+        .form-control:disabled { background: #111; color: #666; border-color: transparent; cursor: not-allowed; }
         .form-control:focus { border-color: var(--primary); }
-        .form-control:disabled { background: #111; color: #666; border-color: transparent; }
 
-        .bi-frame { height: 600px; width: 100%; background: #16181c; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .profile-tag { background: rgba(0,229,255,0.1); color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(0,229,255,0.2); display: inline-block; margin-right: 5px; margin-bottom: 5px; }
+        
         .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
         .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--primary); }
         input:checked + .slider:before { transform: translateX(20px); }
-        .profile-tag { background: rgba(0,229,255,0.1); color: var(--primary); padding: 4px 10px; border-radius: 4px; font-size: 11px; border: 1px solid rgba(0,229,255,0.2); display: inline-block; margin-right: 5px; margin-bottom: 5px; }
+
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .fa-spin { animation: spin 1s linear infinite; }
     </style>
 </head>
 <body>
+
     <div class="sidebar">
         <div class="brand-area"><i class="fa-solid fa-cloud-bolt"></i> KNS <span>SERVICE</span></div>
         <div class="nav-label">Espaço de Trabalho</div>
         <div id="nav-home" class="nav-item active" onclick="navigate('home')"><i class="fa-solid fa-house"></i> Home / Dashboard</div>
-        <div id="nav-new" class="nav-item" onclick="openNewTicketModal()"><i class="fa-solid fa-plus-circle"></i> Novo Chamado</div>
+        <div id="nav-new" class="nav-item" onclick="openModal('modal-new-ticket')"><i class="fa-solid fa-plus-circle"></i> Novo Chamado</div>
         <div id="nav-tickets" class="nav-item" onclick="navigate('tickets')"><i class="fa-solid fa-list-ul"></i> Meus Chamados</div>
         <div class="nav-label">Gestão</div>
         <div id="nav-approvals" class="nav-item" onclick="navigate('approvals')"><i class="fa-solid fa-check-double"></i> Aprovações (2)</div>
-        <div id="nav-bi" class="nav-item" onclick="navigate('bi')"><i class="fa-solid fa-chart-pie"></i> Monitoramento BI</div>
         <div class="nav-label">Auto-Atendimento</div>
         <div class="nav-item" onclick="openServiceModal('reembolso')"><i class="fa-solid fa-receipt"></i> Reembolso</div>
-        <div class="nav-item" onclick="openServiceModal('acesso')"><i class="fa-solid fa-id-badge"></i> Acesso Predial</div>
     </div>
 
     <div class="main-wrapper">
         <div class="topbar">
-            <div class="search-global"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Pesquisar incidente..."></div>
+            <div class="search-global"><i class="fa-solid fa-magnifying-glass"></i><input type="text" placeholder="Pesquisar..."></div>
             <div class="user-actions">
                 <i class="fa-regular fa-bell" style="color: #ccc; cursor: pointer;"></i>
-                <div style="text-align: right; line-height: 1.2;"><div style="font-size: 12px; color: #fff; font-weight: 600;">Kaleb Nunes</div><div style="font-size: 11px; color: #666;">Admin</div></div>
+                <div style="text-align: right; line-height: 1.2;">
+                    <div style="font-size: 12px; color: #fff; font-weight: 600;">Kaleb Nunes</div>
+                    <div style="font-size: 11px; color: #666;">Admin</div>
+                </div>
                 <div class="user-dropdown-container">
                     <div class="avatar" onclick="toggleMenu()" id="header-avatar">K</div>
                     <div id="user-menu" class="dropdown-menu">
@@ -101,160 +106,240 @@
 
         <div class="content-area">
             <div id="view-home" class="view-section active">
-                <h2 style="margin-bottom: 20px; font-size: 16px;">Visão Geral</h2>
+                <h2 style="margin-bottom: 20px;">Visão Geral</h2>
                 <div class="kpi-grid">
-                    <div class="kpi-card" style="border-left: 3px solid var(--accent-orange);"><div class="kpi-value" style="color: var(--accent-orange);">12</div><div class="kpi-label">Aguardando Aprovação</div></div>
-                    <div class="kpi-card" style="border-left: 3px solid var(--primary);"><div class="kpi-value" style="color: var(--primary);">5</div><div class="kpi-label">Novos Incidentes</div></div>
-                    <div class="kpi-card" style="border-left: 3px solid var(--accent-green);"><div class="kpi-value" style="color: var(--accent-green);">84</div><div class="kpi-label">Resolvidos (Mês)</div></div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--accent-orange);"><div class="kpi-value" style="color: var(--accent-orange);">12</div><div class="kpi-label">Aguardando</div></div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--primary);"><div class="kpi-value" style="color: var(--primary);">5</div><div class="kpi-label">Novos</div></div>
+                    <div class="kpi-card" style="border-left: 3px solid var(--accent-green);"><div class="kpi-value" style="color: var(--accent-green);">84</div><div class="kpi-label">Resolvidos</div></div>
                     <div class="kpi-card" style="border-left: 3px solid var(--accent-red);"><div class="kpi-value" style="color: var(--accent-red);">1</div><div class="kpi-label">SLA Vencido</div></div>
                 </div>
-                <h3 style="margin-bottom: 15px; font-size: 14px; margin-top: 40px;">Meus Chamados Recentes</h3>
-                <table class="data-table"><thead><tr><th>Número</th><th>Título</th><th>Serviço</th><th>Status</th><th>Data</th></tr></thead><tbody><tr><td>INC-1029</td><td>Erro de Acesso VPN</td><td>Infraestrutura</td><td><span class="badge bg-wait">Em Análise</span></td><td>Hoje 10:30</td></tr><tr><td>REQ-9921</td><td>Novo Mouse</td><td>Periféricos</td><td><span class="badge bg-new">Novo</span></td><td>Ontem 16:00</td></tr></tbody></table>
+                <h3>Chamados Recentes</h3>
+                <table class="data-table"><thead><tr><th>ID</th><th>Título</th><th>Status</th></tr></thead><tbody><tr><td>#1029</td><td>Erro VPN</td><td><span class="badge bg-wait">Análise</span></td></tr></tbody></table>
             </div>
+            
             <div id="view-tickets" class="view-section">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;"><h2>Todos os Chamados</h2><button onclick="openNewTicketModal()" style="background: var(--primary); color: #000; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: 700;">+ Novo</button></div>
-                <table class="data-table"><thead><tr><th>ID</th><th>Solicitante</th><th>Assunto</th><th>Prioridade</th><th>Estado</th></tr></thead><tbody><tr><td>INC-1029</td><td>Kaleb Nunes</td><td>VPN Caindo</td><td>Alta</td><td><span class="badge bg-wait">WIP</span></td></tr><tr><td>REQ-1002</td><td>Ana Silva</td><td>Acesso Pasta Rede</td><td>Baixa</td><td><span class="badge bg-done">Fechado</span></td></tr></tbody></table>
-            </div>
-            <div id="view-bi" class="view-section">
-                <h2 style="margin-bottom: 20px;">Analytics Infraestrutura</h2>
-                <div class="bi-frame"><i class="fa-solid fa-chart-column" style="font-size: 60px; color: #333; margin-bottom: 20px;"></i><h3 style="color: #666;">Power BI Integration</h3><p style="color: #444; font-size: 12px; margin-top: 10px;">O dashboard "Infra_Prod_v2" está carregando...</p><button style="margin-top: 20px; background: #222; border: 1px solid #444; color: #ccc; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Recarregar Frame</button></div>
-            </div>
-            <div id="view-approvals" class="view-section">
-                <h2>Pendências de Aprovação</h2>
-                <div style="background: var(--bg-panel); border: 1px solid var(--border-color); padding: 20px; border-radius: 6px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center;"><div><div style="font-weight: 700; color: #fff;">Compra de Notebook Dell i7</div><div style="font-size: 12px; color: #888;">Solicitante: João Silva | Valor: R$ 6.500,00</div></div><div><button style="background: var(--accent-green); color: #000; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-weight: 600;">Aprovar</button><button style="background: transparent; border: 1px solid #666; color: #ccc; padding: 6px 15px; border-radius: 4px; cursor: pointer; margin-left: 10px;">Rejeitar</button></div></div>
+                <h2>Lista de Chamados</h2>
+                <table class="data-table"><thead><tr><th>ID</th><th>Solicitante</th><th>Status</th></tr></thead><tbody><tr><td>#1029</td><td>Kaleb</td><td>Aberto</td></tr></tbody></table>
             </div>
         </div>
     </div>
 
-    <div id="modal-profile" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; justify-content:center; align-items:center;">
-        <div style="background: var(--bg-panel); width: 600px; padding: 30px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;"><h3 style="color:#fff;">Ficha do Colaborador</h3><i class="fa-solid fa-xmark" onclick="closeModal('modal-profile')" style="color:#666; cursor:pointer;"></i></div>
-            <div style="display:flex; gap:25px; margin-bottom:30px;">
-                <div style="text-align:center;"><div style="width:100px; height:100px; background:#333; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:40px; border:2px solid var(--primary); margin-bottom:10px; overflow:hidden; position:relative;" onclick="document.getElementById('photo-input').click()"><img id="profile-pic-preview" src="" style="display:none; width:100%; height:100%; object-fit:cover;"><span id="profile-initial">K</span><div style="position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.6); font-size:9px; padding:2px;">ALTERAR</div></div><input type="file" id="photo-input" style="display:none;" onchange="previewPhoto(this)"></div>
+    <div id="modal-profile" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background: var(--bg-panel); width: 600px; padding: 30px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;"><h3 style="color:#fff;">Meu Perfil</h3><i class="fa-solid fa-xmark" onclick="closeModal('modal-profile')" style="color:#666; cursor:pointer;"></i></div>
+            
+            <div style="display:flex; gap:25px; margin-bottom:20px;">
+                <div style="text-align:center;">
+                    <div style="width:100px; height:100px; background:#333; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:40px; border:2px solid var(--primary); margin-bottom:10px; overflow:hidden;" onclick="document.getElementById('photo-input').click()">
+                        <img id="profile-preview" src="" style="display:none; width:100%; height:100%; object-fit:cover;">
+                        <span id="profile-char">K</span>
+                    </div>
+                    <input type="file" id="photo-input" style="display:none;" onchange="previewPhoto(this)">
+                    <div style="font-size:10px; color:var(--primary); cursor:pointer;" onclick="document.getElementById('photo-input').click()">ALTERAR FOTO</div>
+                </div>
                 <div style="flex:1;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;"><h2 style="color:#fff; font-size:20px; margin-bottom:5px;">Kaleb Nunes</h2><button onclick="enableEditMode()" id="btn-edit-profile" style="background:transparent; border:1px solid #444; color:#ccc; font-size:11px; padding:2px 8px; border-radius:4px; cursor:pointer;">Editar <i class="fa-solid fa-pen"></i></button></div>
-                    <input type="text" id="input-role" class="form-control" value="Head of Engineering" disabled style="margin-bottom:15px; background:transparent; border:none; padding:0; color:#888; font-size:14px; width:100%;">
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:13px;"><div><span style="display:block; color:#666; font-size:10px;">DEPTO</span><input id="input-dept" type="text" class="form-control" value="Engenharia" disabled></div><div><span style="display:block; color:#666; font-size:10px;">ID</span><input type="text" class="form-control" value="99021" disabled></div><div><span style="display:block; color:#666; font-size:10px;">EMAIL</span><input id="input-email" type="text" class="form-control" value="kaleb@kns.com" disabled></div><div><span style="display:block; color:#666; font-size:10px;">FONE</span><input id="input-phone" type="text" class="form-control" value="(47) 9999-8821" disabled></div></div>
+                    <div style="display:flex; justify-content:space-between;"><h2 style="color:#fff;">Kaleb Nunes</h2><button onclick="enableEdit()" id="btn-edit" style="background:transparent; border:1px solid #666; color:#ccc; border-radius:4px; padding:2px 8px; cursor:pointer;">Editar</button></div>
+                    <input type="text" id="p-role" class="form-control" value="Head of Engineering" disabled style="background:transparent; border:none; padding:0; color:#888;">
+                    
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+                        <div><span style="font-size:10px; color:#666;">EMAIL</span><input id="p-email" type="text" class="form-control" value="kaleb@kns.com" disabled></div>
+                        <div><span style="font-size:10px; color:#666;">FONE</span><input id="p-phone" type="text" class="form-control" value="(47) 9999-8821" disabled></div>
+                        <div><span style="font-size:10px; color:#666;">DEPTO</span><input id="p-dept" type="text" class="form-control" value="Tecnologia" disabled></div>
+                    </div>
                 </div>
             </div>
-            <div style="text-align:right; margin-top:20px; display:flex; justify-content:end; gap:10px;"><button onclick="closeModal('modal-profile')" style="background:transparent; border:1px solid #444; color:#ccc; padding:8px 20px; border-radius:4px; cursor:pointer;">Fechar</button><button id="btn-save-profile" onclick="saveProfile()" style="display:none; background:var(--primary); border:none; padding:8px 20px; border-radius:4px; font-weight:bold; cursor:pointer; color:#000;">Salvar</button></div>
+            
+            <div style="text-align:right;">
+                <button id="btn-save-p" onclick="saveProfile()" style="display:none; background:var(--primary); border:none; padding:8px 20px; border-radius:4px; font-weight:bold; cursor:pointer;">Salvar Alterações</button>
+                <button onclick="closeModal('modal-profile')" style="background:transparent; border:1px solid #444; color:#ccc; padding:8px 20px; border-radius:4px; cursor:pointer;">Fechar</button>
+            </div>
         </div>
     </div>
 
-    <div id="modal-config" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; justify-content:center; align-items:center;">
-        <div style="background: var(--bg-panel); width: 450px; padding: 30px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;"><h3 style="color:#fff;">Preferências</h3><i class="fa-solid fa-xmark" onclick="closeModal('modal-config')" style="color:#666; cursor:pointer;"></i></div>
-            <div style="margin-bottom:20px;"><h4 style="font-size:13px; color:var(--primary); margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:5px;">Notificações</h4><div style="display:flex; justify-content:space-between; align-items:center;"><div><div style="color:#ddd; font-size:13px;">Alertas Email</div></div><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div></div>
-            <div style="text-align:right; margin-top:20px;"><button onclick="saveConfig()" id="btn-save-config" style="background:var(--primary); border:none; padding:8px 20px; border-radius:4px; font-weight:bold; cursor:pointer;">Salvar</button></div>
+    <div id="modal-config" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background: var(--bg-panel); width: 400px; padding: 30px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;"><h3 style="color:#fff;">Configurações</h3><i class="fa-solid fa-xmark" onclick="closeModal('modal-config')" style="color:#666; cursor:pointer;"></i></div>
+            
+            <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#ddd; font-size:13px;">Notificações por Email</span>
+                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+            </div>
+            <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#ddd; font-size:13px;">Modo Escuro</span>
+                <label class="switch"><input type="checkbox" checked disabled><span class="slider"></span></label>
+            </div>
+            
+            <div style="text-align:right;">
+                <button onclick="saveConfig()" id="btn-save-c" style="background:var(--primary); border:none; padding:8px 20px; border-radius:4px; font-weight:bold; cursor:pointer;">Salvar</button>
+            </div>
         </div>
     </div>
 
-    <div id="modal-new-ticket" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; justify-content:center; align-items:center;">
-        <div style="background: var(--bg-panel); width: 600px; padding: 30px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <h3 style="margin-bottom: 20px; color: #fff;">Novo Incidente</h3>
-            <label class="form-label">Título</label><input class="form-control" type="text">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"><div><label class="form-label">Impacto</label><select class="form-control"><option>Alto</option><option>Baixo</option></select></div><div><label class="form-label">Urgência</label><select class="form-control"><option>Alta</option><option>Baixa</option></select></div></div>
-            <div style="text-align: right; margin-top: 10px;"><button onclick="closeModal('modal-new-ticket')" style="background: transparent; border: 1px solid #444; color: #ccc; padding: 8px 15px; border-radius: 4px; cursor: pointer; margin-right: 10px;">Cancelar</button><button onclick="alert('Criado!'); closeModal('modal-new-ticket')" style="background: var(--primary); color: #000; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Registrar</button></div>
+    <div id="modal-new-ticket" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background: var(--bg-panel); width: 600px; padding: 30px; border-radius: 8px; border: 1px solid var(--border);">
+            <h3 style="margin-bottom: 20px; color:#fff;">Novo Incidente</h3>
+            <input class="form-control" type="text" placeholder="Título do chamado...">
+            <textarea class="form-control" rows="4" placeholder="Descrição..."></textarea>
+            <div style="text-align:right;">
+                <button onclick="closeModal('modal-new-ticket')" style="background:transparent; color:#ccc; border:1px solid #444; padding:8px 15px; border-radius:4px; cursor:pointer;">Cancelar</button>
+                <button onclick="alert('Criado!'); closeModal('modal-new-ticket')" style="background:var(--primary); color:#000; border:none; padding:8px 15px; border-radius:4px; cursor:pointer; font-weight:bold;">Registrar</button>
+            </div>
         </div>
     </div>
 
-    <div id="modal-simple" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:2000; justify-content:center; align-items:center;">
-        <div style="background: var(--bg-panel); width: 400px; padding: 25px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <h3 id="modal-simple-title" style="margin-bottom: 15px; color: #fff;">Solicitação</h3>
+    <div id="modal-simple" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background: var(--bg-panel); width: 400px; padding: 25px; border-radius: 8px; border: 1px solid var(--border);">
+            <h3 id="modal-simple-title" style="margin-bottom: 15px; color:#fff;">Solicitação</h3>
             <div id="modal-simple-body"></div>
-            <div style="margin-top: 20px; text-align: right;"><button onclick="closeModal('modal-simple')" style="background: transparent; border: 1px solid #444; color: #ccc; padding: 8px 15px; border-radius: 4px; cursor: pointer; margin-right: 10px;">Fechar</button><button onclick="alert('Enviado!'); closeModal('modal-simple')" style="background: var(--primary); color: #000; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Enviar</button></div>
+            <div style="margin-top:20px; text-align:right;">
+                <button onclick="closeModal('modal-simple')" style="background:transparent; color:#ccc; border:1px solid #444; padding:8px 15px; border-radius:4px; cursor:pointer;">Fechar</button>
+                <button onclick="alert('Enviado!'); closeModal('modal-simple')" style="background:var(--primary); color:#000; border:none; padding:8px 15px; border-radius:4px; cursor:pointer; font-weight:bold;">Enviar</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // GATEKEEPER
+        // ============================================
+        // LÓGICA CENTRAL DO SISTEMA (JAVASCRIPT)
+        // ============================================
+
+        // 1. GATEKEEPER (Verifica Login)
         document.addEventListener('DOMContentLoaded', () => {
             const session = localStorage.getItem('kns_session');
-            if (!session) { window.location.href = 'index.html'; }
+            if (!session) {
+                window.location.href = 'index.html'; // Chuta pro login se não tiver sessão
+            }
         });
 
-        // NAVEGAÇÃO
+        // 2. NAVEGAÇÃO ENTRE ABAS
         function navigate(viewId) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + viewId).classList.add('active');
+            
+            const target = document.getElementById('view-' + viewId);
+            if(target) target.classList.add('active');
+            
             const nav = document.getElementById('nav-' + viewId);
             if(nav) nav.classList.add('active');
+            
+            // Fecha menu se estiver aberto
             document.getElementById('user-menu').style.display = 'none';
         }
 
-        // MENU E LOGOUT
+        // 3. MENU USUÁRIO & LOGOUT
         function toggleMenu() {
             const menu = document.getElementById('user-menu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
+
         function logout() {
-            const btn = document.querySelector('.dropdown-item[onclick*="logout"]');
-            if(btn) btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saindo...';
+            // Feedback visual
+            const items = document.querySelectorAll('.dropdown-item');
+            items.forEach(i => { if(i.innerText.includes('Sair')) i.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saindo...'; });
+            
+            // Limpa e Redireciona
             localStorage.removeItem('kns_session');
             setTimeout(() => { window.location.href = 'index.html'; }, 800);
         }
 
-        // MODAIS E LÓGICA DE PERFIL
-        function openProfileModal() { document.getElementById('modal-profile').style.display = 'flex'; toggleMenu(); }
-        function openConfigModal() { document.getElementById('modal-config').style.display = 'flex'; toggleMenu(); }
-        function openNewTicketModal() { document.getElementById('modal-new-ticket').style.display = 'flex'; }
-        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        // 4. SISTEMA DE MODAIS (Genérico)
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
 
-        function enableEditMode() {
-            const fields = ['input-role', 'input-dept', 'input-email', 'input-phone'];
-            fields.forEach(id => { document.getElementById(id).disabled = false; document.getElementById(id).style.border = "1px solid #444"; });
-            document.getElementById('btn-save-profile').style.display = 'inline-block';
-            document.getElementById('btn-edit-profile').style.display = 'none';
+        // 5. FUNÇÕES ESPECÍFICAS DO MENU
+        function openProfileModal() {
+            openModal('modal-profile');
+            toggleMenu(); // Fecha o menu atrás
+        }
+        function openConfigModal() {
+            openModal('modal-config');
+            toggleMenu();
+        }
+
+        // 6. LÓGICA DE PERFIL (Edição)
+        function enableEdit() {
+            document.getElementById('p-email').disabled = false;
+            document.getElementById('p-phone').disabled = false;
+            document.getElementById('p-dept').disabled = false;
+            
+            // Estilo visual de edição
+            document.getElementById('p-email').style.border = "1px solid #444";
+            document.getElementById('p-phone').style.border = "1px solid #444";
+            document.getElementById('p-dept').style.border = "1px solid #444";
+
+            document.getElementById('btn-edit').style.display = 'none';
+            document.getElementById('btn-save-p').style.display = 'inline-block';
         }
 
         function saveProfile() {
-            const btn = document.getElementById('btn-save-profile');
+            const btn = document.getElementById('btn-save-p');
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+            
             setTimeout(() => {
-                const fields = ['input-role', 'input-dept', 'input-email', 'input-phone'];
-                fields.forEach(id => { document.getElementById(id).disabled = true; document.getElementById(id).style.border = "none"; });
+                // Bloqueia tudo de volta
+                document.getElementById('p-email').disabled = true;
+                document.getElementById('p-phone').disabled = true;
+                document.getElementById('p-dept').disabled = true;
+                
+                document.getElementById('p-email').style.border = "1px solid transparent";
+                document.getElementById('p-phone').style.border = "1px solid transparent";
+                document.getElementById('p-dept').style.border = "1px solid transparent";
+
                 btn.innerHTML = 'Salvo!';
                 btn.style.background = '#2ecc71';
+                
                 setTimeout(() => {
                     closeModal('modal-profile');
-                    btn.style.display = 'none'; btn.innerHTML = 'Salvar'; btn.style.background = '#00E5FF';
-                    document.getElementById('btn-edit-profile').style.display = 'inline-block';
+                    btn.style.display = 'none';
+                    btn.innerHTML = 'Salvar Alterações';
+                    btn.style.background = '#00E5FF';
+                    document.getElementById('btn-edit').style.display = 'inline-block';
                 }, 1000);
             }, 1000);
-        }
-
-        function saveConfig() {
-            const btn = document.getElementById('btn-save-config');
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> Salvo';
-            btn.style.background = '#2ecc71';
-            setTimeout(() => { closeModal('modal-config'); btn.innerHTML = 'Salvar'; btn.style.background = '#00E5FF'; }, 800);
         }
 
         function previewPhoto(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('profile-pic-preview').src = e.target.result;
-                    document.getElementById('profile-pic-preview').style.display = 'block';
-                    document.getElementById('profile-initial').style.display = 'none';
+                    document.getElementById('profile-preview').src = e.target.result;
+                    document.getElementById('profile-preview').style.display = 'block';
+                    document.getElementById('profile-char').style.display = 'none';
+                    // Atualiza avatar do topo também
                     document.getElementById('header-avatar').innerHTML = `<img src="${e.target.result}" style="width:100%; height:100%; object-fit:cover;">`;
                 }
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
+        function saveConfig() {
+            const btn = document.getElementById('btn-save-c');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Salvo';
+            btn.style.background = '#2ecc71';
+            setTimeout(() => { 
+                closeModal('modal-config'); 
+                btn.innerHTML = 'Salvar'; 
+                btn.style.background = '#00E5FF'; 
+            }, 800);
+        }
+
+        // 7. MODAL DINÂMICO (Serviços)
         function openServiceModal(type) {
             const modal = document.getElementById('modal-simple');
             const title = document.getElementById('modal-simple-title');
             const body = document.getElementById('modal-simple-body');
             modal.style.display = 'flex';
+
             if(type === 'reembolso') {
-                title.innerText = "Solicitar Reembolso";
-                body.innerHTML = "<label class='form-label'>Valor</label><input type='number' class='form-control'><label class='form-label'>Anexo</label><input type='file' class='form-control'>";
-            } else {
-                title.innerText = "Acesso Predial";
-                body.innerHTML = "<label class='form-label'>Nome</label><input type='text' class='form-control'><label class='form-label'>RG</label><input type='text' class='form-control'>";
+                title.innerText = "Reembolso de Despesas";
+                body.innerHTML = "<label class='form-label'>Valor (R$)</label><input type='number' class='form-control'><label class='form-label'>Nota Fiscal</label><input type='file' class='form-control'>";
+            } else if (type === 'acesso') {
+                title.innerText = "Liberação de Acesso";
+                body.innerHTML = "<label class='form-label'>Visitante</label><input type='text' class='form-control'><label class='form-label'>Documento</label><input type='text' class='form-control'>";
             }
         }
     </script>
