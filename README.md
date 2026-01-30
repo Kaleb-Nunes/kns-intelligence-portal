@@ -117,4 +117,6 @@ JSON
 
 [ ] Tema Light/Dark alternável.
 
-<div align="center"> <p>Desenvolvido por <strong>Kaleb Nunes</strong></p> <p><em>Head of Engineering @ KNS Consultoria Global</em></p> <p>📍 Balneário Camboriú, SC - Brasil</p> </div>
+<div align="center"> <p>Desenvolvido por <strong>Kaleb Nunes</strong></p> <p><em>Head of Engineering @ KNS Consultoria Global</em></p> <p>📍 Balneário Camboriú, SC - Brasil</p> </div>.
+
+Last Update: 29/01/2026
