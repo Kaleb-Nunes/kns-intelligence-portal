@@ -51,7 +51,7 @@
         <form onsubmit="fazerLogin(event)">
             <div class="input-group">
                 <i class="fa-solid fa-user"></i>
-                <input type="text" id="login_email" placeholder="E-mail Corporativo" required>
+                <input type="text" id="login_email" placeholder="Usuário / E-mail" required>
             </div>
             <div class="input-group">
                 <i class="fa-solid fa-lock"></i>
@@ -79,10 +79,11 @@
         <div class="modal-content">
             <h2 style="color:#fff; margin:0;">Termos de Uso</h2>
             <div class="term-text">
-                <p>1. O acesso é pessoal e intransferível.</p>
-                <p>2. Todas as ações são monitoradas para fins de auditoria.</p>
-                <p>3. O uso indevido resultará em bloqueio imediato.</p>
-                <p style="color: #00E5FF;">Clique abaixo para assinar digitalmente.</p>
+                <p><strong>1. CONFIDENCIALIDADE:</strong> O usuário reconhece que terá acesso a informações confidenciais e concorda em mantê-las em sigilo absoluto.</p>
+                <p><strong>2. USO DE CREDENCIAIS:</strong> O login é pessoal e intransferível. O compartilhamento de senha é violação grave.</p>
+                <p><strong>3. MONITORAMENTO:</strong> Todas as ações realizadas neste portal são auditadas e registradas (Logs de Sistema).</p>
+                <p><strong>4. COMPLIANCE:</strong> O uso deve estar em conformidade com as normas ISO 27001 e LGPD vigentes.</p>
+                <p style="color: #00E5FF; font-weight: bold;">Ao clicar abaixo, você assina digitalmente este termo.</p>
             </div>
             <button type="button" class="btn-action" onclick="aceitarTermos()">LI E CONCORDO</button>
         </div>
@@ -115,17 +116,30 @@
     </div>
 
     <script>
-        // Inicializa Banco de Dados Local se não existir
-        if (!localStorage.getItem('kns_db_users')) {
-            // Cria usuário Admin Padrão
-            const adminUser = [{
+        // --- INICIALIZAÇÃO DE CREDENCIAIS (FORÇA BRUTA) ---
+        // Isso garante que seu usuário funcione imediatamente
+        (function initDatabase() {
+            // Definição do Usuário Master
+            const masterUser = {
                 nome: "Kaleb Nunes",
-                email: "admin",
+                email: "kaleb.nunes", // Seu login
                 cargo: "Head of Engineering",
-                senha: "admin"
-            }];
-            localStorage.setItem('kns_db_users', JSON.stringify(adminUser));
-        }
+                senha: "13091993" // Sua senha
+            };
+
+            // Pega o banco atual ou cria vazio
+            let users = JSON.parse(localStorage.getItem('kns_db_users')) || [];
+            
+            // Remove duplicata antiga se houver (para atualizar senha/cargo se mudou)
+            users = users.filter(u => u.email !== masterUser.email);
+            
+            // Adiciona o usuário master atualizado
+            users.push(masterUser);
+            
+            // Salva de volta
+            localStorage.setItem('kns_db_users', JSON.stringify(users));
+            console.log("KNS Database: Credenciais de Kaleb Nunes atualizadas.");
+        })();
 
         // --- SISTEMA DE MODAIS ---
         function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
@@ -156,17 +170,13 @@
                 return;
             }
 
-            // Pega usuários existentes
             let users = JSON.parse(localStorage.getItem('kns_db_users'));
-            
-            // Verifica duplicidade
             const existe = users.find(u => u.email === email);
             if(existe) {
                 alert("Este e-mail já está cadastrado.");
                 return;
             }
 
-            // Salva novo
             users.push({ nome, email, cargo, senha });
             localStorage.setItem('kns_db_users', JSON.stringify(users));
 
@@ -184,12 +194,11 @@
             btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> VERIFICANDO...';
 
             setTimeout(() => {
-                // Busca no banco local
                 const users = JSON.parse(localStorage.getItem('kns_db_users'));
+                // Procura usuário correspondente
                 const userValido = users.find(u => u.email === email && u.senha === senha);
 
                 if (userValido) {
-                    // Salva sessão com os dados do usuário encontrado
                     localStorage.setItem('kns_session', JSON.stringify(userValido));
                     window.location.href = 'dashboard.html';
                 } else {
