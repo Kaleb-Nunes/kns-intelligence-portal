@@ -2,124 +2,111 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNS Intelligence | Login Seguro</title>
+    <title>KNS | Acesso Corporativo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon-blue: #00E5FF; --bg-glass: rgba(16, 18, 20, 0.95); --border: #333; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #050505; background-image: radial-gradient(circle at 50% 50%, #111 0%, #000 100%); height: 100vh; display: flex; justify-content: center; align-items: center; color: #fff; overflow: hidden; }
+        body { background: #050505; color: #fff; height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Inter', sans-serif; overflow: hidden; margin: 0; }
+        .login-box { background: #111; padding: 40px; border-radius: 8px; border: 1px solid #333; width: 400px; text-align: center; box-shadow: 0 0 50px rgba(0,229,255,0.1); position: relative; z-index: 10; }
         
-        .login-card { background: var(--bg-glass); width: 420px; padding: 45px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 0 60px rgba(0,0,0,0.9); text-align: center; position: relative; }
-        .neon-bar { height: 3px; background: var(--neon-blue); width: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 0 15px var(--neon-blue); }
+        /* Efeito de Grade no Fundo */
+        .bg-grid { position: absolute; width: 100%; height: 100%; background: linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px); background-size: 40px 40px; z-index: 0; }
+
+        h1 { color: #fff; margin-bottom: 5px; font-size: 24px; letter-spacing: -1px; }
+        h1 span { color: #00E5FF; }
+        p.subtitle { color: #666; font-size: 11px; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
         
-        h1 { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 700; margin-bottom: 5px; }
-        h1 span { color: var(--neon-blue); }
-        p.subtitle { color: #666; font-size: 11px; letter-spacing: 2px; margin-bottom: 40px; text-transform: uppercase; font-weight: 600; }
-
-        .input-group { position: relative; margin-bottom: 25px; text-align: left; }
-        .input-field { width: 100%; padding: 15px 15px 15px 45px; background: #0a0a0a; border: 1px solid var(--border); color: #fff; border-radius: 6px; outline: none; font-size: 14px; transition: 0.3s; }
-        .input-icon { position: absolute; left: 15px; top: 16px; color: #555; font-size: 16px; }
-        .input-field:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1); }
-
-        .terms-container { display: flex; align-items: center; gap: 12px; margin: 10px 0 30px 0; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid var(--border); cursor: pointer; }
-        .terms-container:hover { border-color: #555; }
-        .terms-container.active { border-color: var(--neon-blue); background: rgba(0, 229, 255, 0.05); }
+        .input-group { position: relative; margin-bottom: 15px; }
+        .input-group i { position: absolute; left: 15px; top: 12px; color: #555; }
+        input { width: 100%; padding: 12px 12px 12px 40px; background: #0a0a0a; border: 1px solid #333; color: #fff; border-radius: 4px; outline: none; transition: 0.3s; box-sizing: border-box; }
+        input:focus { border-color: #00E5FF; box-shadow: 0 0 10px rgba(0,229,255,0.1); }
         
-        .btn-login { width: 100%; padding: 16px; background: #222; color: #555; border: none; border-radius: 6px; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; cursor: not-allowed; transition: all 0.3s; }
-        .btn-login.enabled { background: var(--neon-blue); color: #000; cursor: pointer; box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); }
-        .btn-login.enabled:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); }
+        .check-area { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 12px; color: #888; text-align: left; }
+        input[type="checkbox"] { width: 16px; margin: 0; accent-color: #00E5FF; cursor: not-allowed; }
+        .link-termos { color: #00E5FF; text-decoration: underline; cursor: pointer; }
+        
+        button { width: 100%; padding: 12px; background: #222; color: #555; border: none; border-radius: 4px; font-weight: bold; cursor: not-allowed; transition: 0.3s; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+        button.active { background: #00E5FF; color: #000; cursor: pointer; }
+        button.active:hover { box-shadow: 0 0 20px rgba(0,229,255,0.4); }
 
-        .shake { animation: shake 0.4s ease-in-out; border-color: #ff4d4d; }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-        .footer-tech { margin-top: 30px; font-size: 9px; color: #444; border-top: 1px solid #222; padding-top: 20px; font-family: 'JetBrains Mono', monospace; }
+        /* Modal de Termos */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 20; justify-content: center; align-items: center; }
+        .modal-content { background: #151515; width: 600px; max-height: 80vh; padding: 30px; border: 1px solid #333; border-radius: 8px; display: flex; flex-direction: column; }
+        .term-text { flex: 1; overflow-y: auto; text-align: justify; font-size: 13px; color: #ccc; line-height: 1.6; margin: 20px 0; padding-right: 10px; border-bottom: 1px solid #333; }
+        .btn-agree { background: #00E5FF; color: #000; cursor: pointer; width: auto; align-self: flex-end; padding: 10px 30px; }
     </style>
 </head>
 <body>
-    <div class="login-card" id="card">
-        <div class="neon-bar"></div>
-        <h1>KNS <span>INTEL</span></h1>
-        <p class="subtitle">Secure Engineering Portal v5.0</p>
+    <div class="bg-grid"></div>
 
-        <form onsubmit="tryLogin(event)">
+    <div class="login-box">
+        <h1>KNS <span>ENTERPRISE</span></h1>
+        <p class="subtitle">Secure Service Portal v5.2</p>
+        
+        <form onsubmit="fazerLogin(event)">
             <div class="input-group">
-                <input type="text" id="user" class="input-field" placeholder="ID Corporativo" required>
-                <i class="fa-regular fa-user input-icon"></i>
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="usuario" placeholder="Usuário / E-mail" required>
             </div>
             <div class="input-group">
-                <input type="password" id="pass" class="input-field" placeholder="Senha" required>
-                <i class="fa-solid fa-lock input-icon"></i>
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="senha" placeholder="Senha" required>
             </div>
-            <div class="terms-container" id="terms-box" onclick="toggleTerms()">
-                <input type="checkbox" id="lgpd-check" onclick="event.stopPropagation(); checkState()">
-                <label style="font-size: 11px; color: #888; cursor: pointer;">Li e concordo com as políticas de Compliance.</label>
+            
+            <div class="check-area">
+                <input type="checkbox" id="check_compliance" disabled>
+                <span>Li e concordo com os <span class="link-termos" onclick="abrirTermos()">Termos de Uso e Compliance</span>.</span>
             </div>
-            <button type="submit" id="btn-submit" class="btn-login" disabled><i class="fa-solid fa-lock"></i> Aguardando Aceite</button>
+            
+            <button type="submit" id="btn-entrar" disabled><i class="fa-solid fa-lock"></i> Aguardando Aceite</button>
         </form>
-        <div class="footer-tech">POWERED BY <strong>PROTOCOL 09</strong> | TLS 1.3 ENCRYPTED</div>
+        <div style="margin-top: 20px; font-size: 10px; color: #444;">
+            SISTEMA MONITORADO POR KNS SECURITY<br>IP: <span style="color:#00E5FF">192.168.0.105</span>
+        </div>
+    </div>
+
+    <div id="modal-termos" class="modal-overlay">
+        <div class="modal-content">
+            <h2 style="color:#fff; margin:0;">Política de Segurança da Informação</h2>
+            <div class="term-text">
+                <p><strong>1. CONFIDENCIALIDADE:</strong> O usuário reconhece que terá acesso a informações confidenciais e concorda em mantê-las em sigilo absoluto.</p>
+                <p><strong>2. USO DE CREDENCIAIS:</strong> O login é pessoal e intransferível. O compartilhamento de senha é violação grave.</p>
+                <p><strong>3. MONITORAMENTO:</strong> Todas as ações realizadas neste portal são auditadas e registradas (Logs de Sistema).</p>
+                <p><strong>4. COMPLIANCE:</strong> O uso deve estar em conformidade com as normas ISO 27001 e LGPD vigentes.</p>
+                <p style="color: #00E5FF; font-weight: bold;">Ao clicar abaixo, você assina digitalmente este termo.</p>
+            </div>
+            <button type="button" class="btn-agree" onclick="aceitarTermos()">LI E CONCORDO</button>
+        </div>
     </div>
 
     <script>
-        // --- Lógica Simples e Direta ---
-        function toggleTerms() {
-            const checkbox = document.getElementById('lgpd-check');
-            checkbox.checked = !checkbox.checked;
-            checkState();
+        function abrirTermos() {
+            document.getElementById('modal-termos').style.display = 'flex';
         }
 
-        function checkState() {
-            const checkbox = document.getElementById('lgpd-check');
-            const box = document.getElementById('terms-box');
-            const btn = document.getElementById('btn-submit');
+        function aceitarTermos() {
+            document.getElementById('modal-termos').style.display = 'none';
+            // Libera o checkbox e marca ele
+            const check = document.getElementById('check_compliance');
+            check.disabled = false;
+            check.checked = true;
             
-            if (checkbox.checked) {
-                box.classList.add('active');
-                btn.disabled = false;
-                btn.classList.add('enabled');
-                btn.innerHTML = "Acessar Sistema <i class='fa-solid fa-arrow-right'></i>";
-            } else {
-                box.classList.remove('active');
-                btn.disabled = true;
-                btn.classList.remove('enabled');
-                btn.innerHTML = '<i class="fa-solid fa-lock"></i> Aguardando Aceite';
-            }
+            // Libera o botão
+            const btn = document.getElementById('btn-entrar');
+            btn.disabled = false;
+            btn.classList.add('active');
+            btn.innerHTML = "ACESSAR SISTEMA <i class='fa-solid fa-arrow-right'></i>";
         }
 
-        function tryLogin(event) {
-            event.preventDefault();
-            const user = document.getElementById('user');
-            const pass = document.getElementById('pass');
-            const btn = document.getElementById('btn-submit');
-            const card = document.getElementById('card');
-
-            // Reset
-            card.classList.remove('shake');
-            user.style.borderColor = "#333";
-            pass.style.borderColor = "#333";
-
-            // Loading
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Validando...';
+        function fazerLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-entrar');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> AUTENTICANDO...';
             
+            // Simula delay de rede e redireciona
             setTimeout(() => {
-                // Validação: Mínimo 3 caracteres
-                if (user.value.length > 3 && pass.value.length > 3) {
-                    btn.innerHTML = '<i class="fa-solid fa-check"></i> SUCESSO';
-                    btn.style.background = "#2ecc71";
-                    btn.style.color = "#000";
-                    
-                    // CRIA A SESSÃO E REDIRECIONA
-                    localStorage.setItem('kns_session', 'active');
-                    window.location.href = 'dashboard.html';
-                } else {
-                    btn.innerHTML = "Acessar Sistema <i class='fa-solid fa-arrow-right'></i>";
-                    card.classList.add('shake');
-                    user.style.borderColor = "#ff4d4d";
-                    pass.style.borderColor = "#ff4d4d";
-                    pass.value = "";
-                    user.focus();
-                }
+                localStorage.setItem('kns_session', 'active');
+                window.location.href = 'dashboard.html';
             }, 1000);
         }
     </script>
