@@ -2,87 +2,56 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>KNS Service | Dashboard Enterprise</title>
+    <title>KNS Service | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS RESET & VARS */
-        :root { 
-            --bg: #0a0b0d; --panel: #1b1e24; --border: #2a2e35; 
-            --primary: #00E5FF; --success: #2ecc71; --warning: #f1c40f; --danger: #e74c3c;
-            --text: #e1e3e8; --text-muted: #9499a3;
-        }
+        /* CSS IDENTICO AO ANTERIOR */
+        :root { --bg: #0a0b0d; --panel: #1b1e24; --border: #2a2e35; --primary: #00E5FF; --success: #2ecc71; --warning: #f1c40f; --danger: #e74c3c; --text: #e1e3e8; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; outline: none; }
         body { background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
-
-        /* SIDEBAR */
+        
         .sidebar { width: 260px; background: #121418; border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 15px; }
         .logo { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
         .logo span { color: var(--primary); }
         .nav-label { font-size: 10px; text-transform: uppercase; color: #555; margin: 20px 0 5px 10px; font-weight: 700; }
-        .nav-item { padding: 10px 15px; color: var(--text-muted); cursor: pointer; border-radius: 6px; margin-bottom: 2px; display: flex; align-items: center; gap: 10px; font-size: 13px; transition: 0.2s; }
+        .nav-item { padding: 10px 15px; color: #9499a3; cursor: pointer; border-radius: 6px; margin-bottom: 2px; display: flex; align-items: center; gap: 10px; font-size: 13px; transition: 0.2s; }
         .nav-item:hover, .nav-item.active { background: rgba(0, 229, 255, 0.08); color: var(--primary); }
 
-        /* MAIN */
         .main { flex: 1; display: flex; flex-direction: column; }
         .topbar { height: 60px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; padding: 0 25px; }
-        .search-box { background: var(--bg); border: 1px solid var(--border); padding: 8px 15px; border-radius: 4px; width: 400px; display: flex; gap: 10px; color: #fff; font-size: 13px; }
-        .search-box input { background: transparent; border: none; color: #fff; width: 100%; }
-
-        /* USER PROFILE DROPDOWN */
+        
         .user-area { position: relative; }
         .user-trigger { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .avatar { width: 35px; height: 35px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid var(--border); color: #fff; overflow: hidden;}
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar { width: 35px; height: 35px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid var(--border); color: #fff; }
         
-        .dropdown { 
-            display: none; position: absolute; top: 50px; right: 0; width: 240px; 
-            background: var(--panel); border: 1px solid var(--border); border-radius: 6px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; overflow: hidden;
-        }
+        .dropdown { display: none; position: absolute; top: 50px; right: 0; width: 240px; background: var(--panel); border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000; overflow: hidden; }
         .user-header { padding: 15px; border-bottom: 1px solid var(--border); text-align: center; background: rgba(0,0,0,0.2); }
-        .btn-client-area { margin-top: 10px; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 5px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; width: 100%; }
-        .drop-item { padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .drop-item { padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 13px; color: #aaa; cursor: pointer; display: flex; align-items: center; gap: 10px; }
         .drop-item:hover { background: #222; color: #fff; }
-        .drop-item.danger { color: var(--danger); }
 
-        /* CONTENT */
         .content { flex: 1; padding: 30px; overflow-y: auto; }
-        .page-view { display: none; animation: fadeIn 0.3s ease; }
-        .page-view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
         .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
         .kpi-card { background: var(--panel); padding: 20px; border-radius: 6px; border: 1px solid var(--border); }
         .kpi-num { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 5px; }
-        .kpi-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-lbl { font-size: 12px; color: #aaa; text-transform: uppercase; }
 
-        /* TABLES */
-        .table-container { background: var(--panel); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .data-table th { text-align: left; padding: 12px; background: #15171c; color: #fff; border-bottom: 2px solid var(--border); font-size: 11px; text-transform: uppercase; }
-        .data-table td { padding: 12px; border-bottom: 1px solid var(--border); color: #ccc; }
-        .data-table tr:hover { background: rgba(255,255,255,0.02); }
-        
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-        .bg-new { background: rgba(0, 229, 255, 0.15); color: var(--primary); border: 1px solid rgba(0,229,255,0.3); }
-        .bg-wait { background: rgba(243, 156, 18, 0.15); color: var(--warning); border: 1px solid rgba(243,156,18,0.3); }
-        .bg-crit { background: rgba(231, 76, 60, 0.15); color: var(--danger); border: 1px solid rgba(231,76,60,0.3); }
-
-        /* MODAIS */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; }
-        .modal { background: var(--panel); width: 700px; max-height: 90vh; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+        .modal { background: var(--panel); width: 700px; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
         .modal-header { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); }
-        .modal-body { padding: 20px; overflow-y: auto; }
+        .modal-body { padding: 20px; }
         
-        /* FORM ELEMENTS */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         .form-label { display: block; font-size: 11px; color: #888; margin-bottom: 5px; font-weight: 600; }
         .form-control { width: 100%; padding: 10px; background: #0a0b0d; border: 1px solid var(--border); color: #fff; border-radius: 4px; font-size: 13px; }
-        .form-control:focus { border-color: var(--primary); }
-        select.form-control { cursor: pointer; }
+        
+        /* TABELA DE USUÁRIOS (ROOT) */
+        .user-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .user-table th { text-align: left; padding: 10px; background: #252830; color: var(--primary); }
+        .user-table td { padding: 10px; border-bottom: 1px solid #333; color: #ccc; }
+        .btn-delete { color: var(--danger); cursor: pointer; font-weight: bold; }
+        .btn-delete:hover { text-decoration: underline; }
 
-        /* TOAST */
         #toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 4px; padding: 16px; position: fixed; z-index: 10000; left: 50%; bottom: 30px; transform: translateX(-50%); border-left: 4px solid var(--primary); }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
@@ -93,256 +62,163 @@
 
     <div class="sidebar">
         <div class="logo"><i class="fa-solid fa-cube"></i> KNS <span>SERVICE</span></div>
+        <div class="nav-label">Geral</div>
+        <div class="nav-item active"><i class="fa-solid fa-house"></i> Dashboard</div>
+        <div class="nav-item"><i class="fa-solid fa-list"></i> Meus Chamados</div>
         
-        <div class="nav-label">Espaço de Trabalho</div>
-        <div class="nav-item active" onclick="navigate('dashboard')"><i class="fa-solid fa-house"></i> Home / Dashboard</div>
-        <div class="nav-item" onclick="abrirModal('modal-novo-chamado')"><i class="fa-solid fa-plus-circle"></i> Novo Chamado</div>
-        <div class="nav-item" onclick="navigate('tickets')"><i class="fa-solid fa-list"></i> Lista de Chamados</div>
-        
-        <div class="nav-label">Gestão</div>
-        <div class="nav-item"><i class="fa-solid fa-check-double"></i> Aprovações (2)</div>
-        
-        <div class="nav-label">Configurações</div>
-        <div class="nav-item" onclick="abrirModal('modal-perfil')"><i class="fa-solid fa-user-gear"></i> Meu Cadastro</div>
+        <div class="nav-label">Administração</div>
+        <div class="nav-item" onclick="abrirModalUsers()" style="color: var(--warning);"><i class="fa-solid fa-database"></i> Database Users</div>
     </div>
 
     <div class="main">
         <div class="topbar">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Pesquisar por ID, Título ou Assunto...">
-            </div>
+            <div style="color:#666; font-size:13px;">Ambiente de Produção</div>
             
             <div class="user-area">
                 <div class="user-trigger" onclick="toggleMenu()">
                     <div style="text-align: right; font-size: 12px;">
-                        <div style="font-weight: 700; color: #fff;">Kaleb Nunes</div>
-                        <div style="color: #666;">Admin Sistema</div>
+                        <div style="font-weight: 700; color: #fff;" id="display-name">Carregando...</div>
+                        <div style="color: #666;" id="display-role">...</div>
                     </div>
-                    <div class="avatar">K</div>
+                    <div class="avatar" id="display-initial">U</div>
                 </div>
 
                 <div id="user-menu" class="dropdown">
                     <div class="user-header">
-                        <div class="avatar" style="margin: 0 auto 10px auto; width: 50px; height: 50px; font-size: 20px;">K</div>
-                        <h4>Kaleb Nunes</h4>
-                        <p>TI - Operações Globais</p>
+                        <h4 id="menu-name" style="color:#fff; margin:0;">Usuário</h4>
+                        <p id="menu-email" style="font-size:11px; color:var(--primary); margin:5px 0;">email@kns.com</p>
                     </div>
                     <div class="drop-item" onclick="abrirModal('modal-perfil')"><i class="fa-regular fa-user"></i> Meu Cadastro</div>
-                    <div class="drop-item danger" onclick="logout()"><i class="fa-solid fa-power-off"></i> Sair</div>
+                    <div class="drop-item" style="color:#e74c3c;" onclick="logout()"><i class="fa-solid fa-power-off"></i> Sair</div>
                 </div>
             </div>
         </div>
 
         <div class="content">
+            <div class="kpi-grid">
+                <div class="kpi-card" style="border-left: 4px solid var(--primary);"><div class="kpi-num">5</div><div class="kpi-lbl">Abertos</div></div>
+                <div class="kpi-card" style="border-left: 4px solid var(--success);"><div class="kpi-num">120</div><div class="kpi-lbl">Resolvidos</div></div>
+            </div>
             
-            <div id="view-dashboard" class="page-view active">
-                <div class="kpi-grid">
-                    <div class="kpi-card" style="border-left: 4px solid var(--primary);"><div class="kpi-num" id="kpi-abertos">0</div><div class="kpi-lbl">Chamados Abertos</div></div>
-                    <div class="kpi-card" style="border-left: 4px solid #34495e;"><div class="kpi-num">2</div><div class="kpi-lbl">Aguardando Aprovação</div></div>
-                    <div class="kpi-card" style="border-left: 4px solid var(--success);"><div class="kpi-num">84</div><div class="kpi-lbl">Concluídos (Mês)</div></div>
-                    <div class="kpi-card" style="border-left: 4px solid var(--warning);"><div class="kpi-num">1</div><div class="kpi-lbl">Vencidos (SLA)</div></div>
-                </div>
-
-                <h3 style="margin-bottom: 20px; font-size: 16px; color: #fff;">Meus Chamados Recentes</h3>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>ID</th><th>Título</th><th>Serviço</th><th>Prioridade</th><th>Status</th><th>Data</th></tr>
-                        </thead>
-                        <tbody id="table-dashboard-body">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="view-tickets" class="page-view">
-                <h3 style="margin-bottom: 20px; font-size: 16px; color: #fff;">Todos os Chamados</h3>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>ID</th><th>Solicitante</th><th>Título</th><th>Serviço</th><th>Prioridade</th><th>Status</th></tr>
-                        </thead>
-                        <tbody id="table-tickets-body">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="modal-novo-chamado" class="overlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h3>Novo Chamado</h3>
-                <i class="fa-solid fa-times close-btn" onclick="fecharModais()"></i>
-            </div>
-            <div class="modal-body">
-                <label class="form-label">Título *</label>
-                <input type="text" id="ticket-title" class="form-control" style="margin-bottom: 15px;" placeholder="Resumo do problema...">
-                
-                <div class="form-grid">
-                    <div>
-                        <label class="form-label">Serviço</label>
-                        <select id="ticket-service" class="form-control" style="background:#0a0b0d; color:#fff">
-                            <option>Infraestrutura</option>
-                            <option>Sistemas ERP</option>
-                            <option>Periféricos</option>
-                            <option>Acessos</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="form-label">Prioridade</label>
-                        <select id="ticket-priority" class="form-control" style="background:#0a0b0d; color:#fff">
-                            <option value="Baixa">Baixa</option>
-                            <option value="Média">Média</option>
-                            <option value="Alta">Alta</option>
-                            <option value="Crítica">Crítica</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <label class="form-label">Descrição</label>
-                <textarea id="ticket-desc" class="form-control" rows="5" style="background:#0a0b0d; color:#fff; border:1px solid #333; width:100%;"></textarea>
-            </div>
-            <div style="padding: 15px; text-align: right; border-top: 1px solid var(--border);">
-                <button onclick="fecharModais()" style="background: transparent; color: #ccc; border: 1px solid #444; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px;">Cancelar</button>
-                <button onclick="criarChamado()" style="background: var(--success); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">Registrar</button>
+            <div class="kpi-card">
+                <h3 style="margin-bottom:15px; color:#fff;">Bem-vindo, <span id="welcome-name">Colaborador</span></h3>
+                <p style="color:#888; font-size:13px;">Sistema operando normalmente.</p>
             </div>
         </div>
     </div>
 
     <div id="modal-perfil" class="overlay">
         <div class="modal">
-            <div class="modal-header"><h3>Meu Cadastro</h3><i class="fa-solid fa-times close-btn" onclick="fecharModais()"></i></div>
+            <div class="modal-header"><h3>Meu Cadastro</h3><i class="fa-solid fa-times" style="color:#888; cursor:pointer;" onclick="fecharModais()"></i></div>
             <div class="modal-body">
                 <div class="form-grid">
-                    <div><label class="form-label">Nome</label><input type="text" class="form-control" value="Kaleb Nunes"></div>
-                    <div><label class="form-label">Email</label><input type="text" class="form-control" value="kaleb.nunes@kns.com"></div>
+                    <div><label class="form-label">Nome</label><input type="text" id="prof-nome" class="form-control" disabled></div>
+                    <div><label class="form-label">E-mail</label><input type="text" id="prof-email" class="form-control" disabled></div>
+                </div>
+                <div class="form-grid">
+                    <div><label class="form-label">Cargo</label><input type="text" id="prof-cargo" class="form-control" disabled></div>
+                    <div><label class="form-label">Senha</label><input type="password" class="form-control" placeholder="*******" disabled></div>
                 </div>
             </div>
-            <div style="padding: 15px; text-align: right;"><button onclick="showToast('Salvo!'); fecharModais()" style="background:var(--success); border:none; padding:10px; border-radius:4px; cursor:pointer;">Salvar</button></div>
+            <div style="padding:15px; text-align:right;">
+                <button onclick="fecharModais()" style="background:var(--primary); border:none; padding:10px 20px; border-radius:4px; font-weight:bold; cursor:pointer;">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-users" class="overlay">
+        <div class="modal" style="width: 800px;">
+            <div class="modal-header">
+                <h3 style="color: var(--warning);"><i class="fa-solid fa-server"></i> Banco de Dados de Usuários (Root Access)</h3>
+                <i class="fa-solid fa-times" style="color:#888; cursor:pointer;" onclick="fecharModais()"></i>
+            </div>
+            <div class="modal-body">
+                <p style="color:#aaa; font-size:12px; margin-bottom:15px;">Abaixo estão listados todos os usuários registrados no Local Storage do navegador.</p>
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail (Login)</th>
+                            <th>Cargo</th>
+                            <th>Senha (Decrypted)</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body">
+                        </tbody>
+                </table>
+            </div>
+            <div style="padding:15px; text-align:right;">
+                <button onclick="fecharModais()" style="background:#333; color:#fff; border:1px solid #555; padding:10px 20px; border-radius:4px; cursor:pointer;">Fechar Console</button>
+            </div>
         </div>
     </div>
 
     <div id="toast">Mensagem Aqui</div>
 
     <script>
-        // ==========================================
-        //  ENGINE KNS v6.0 - DADOS E LÓGICA
-        // ==========================================
-
         // 1. GATEKEEPER
-        if(!localStorage.getItem('kns_session')) { window.location.href = 'index.html'; }
+        const sessionJson = localStorage.getItem('kns_session');
+        if(!sessionJson) { window.location.href = 'index.html'; }
 
-        // 2. BASE DE DADOS (LOCAL STORAGE)
-        // Se não tiver dados salvos, carrega uns exemplos
-        let ticketsDB = JSON.parse(localStorage.getItem('kns_tickets')) || [
-            { id: 'INC-1001', title: 'Erro de VPN', service: 'Infraestrutura', priority: 'Alta', status: 'Em Análise', date: 'Hoje 09:00', requester: 'Kaleb Nunes' },
-            { id: 'REQ-0992', title: 'Solicitação de Monitor', service: 'Periféricos', priority: 'Baixa', status: 'Novo', date: 'Ontem 14:00', requester: 'Ana Silva' }
-        ];
+        const user = JSON.parse(sessionJson);
 
-        // 3. INICIALIZAÇÃO
         document.addEventListener('DOMContentLoaded', () => {
-            renderizarTabelas();
-            atualizarKPIs();
+            // Preenche Interface
+            document.getElementById('display-name').innerText = user.nome;
+            document.getElementById('display-role').innerText = user.cargo;
+            document.getElementById('display-initial').innerText = user.nome.charAt(0).toUpperCase();
+            document.getElementById('menu-name').innerText = user.nome;
+            document.getElementById('menu-email').innerText = user.email;
+            document.getElementById('welcome-name').innerText = user.nome.split(' ')[0];
+
+            // Preenche Perfil
+            document.getElementById('prof-nome').value = user.nome;
+            document.getElementById('prof-email').value = user.email;
+            document.getElementById('prof-cargo').value = user.cargo;
         });
 
-        // 4. FUNÇÃO DE RENDERIZAR TABELAS
-        function renderizarTabelas() {
-            const tableDash = document.getElementById('table-dashboard-body');
-            const tableList = document.getElementById('table-tickets-body');
-            
-            // Limpa as tabelas
-            tableDash.innerHTML = '';
-            tableList.innerHTML = '';
+        // --- LÓGICA DE USUÁRIOS (ROOT) ---
+        function abrirModalUsers() {
+            const users = JSON.parse(localStorage.getItem('kns_db_users')) || [];
+            const tbody = document.getElementById('user-table-body');
+            tbody.innerHTML = '';
 
-            // Popula com os dados (Do mais novo para o mais velho)
-            ticketsDB.forEach(t => {
-                // HTML da linha
-                let badgeClass = t.priority === 'Alta' || t.priority === 'Crítica' ? 'bg-crit' : 'bg-new';
-                if(t.status === 'Em Análise') badgeClass = 'bg-wait';
-
-                const rowDash = `
+            users.forEach((u, index) => {
+                const row = `
                     <tr>
-                        <td><span style="color:#fff; font-weight:bold;">${t.id}</span></td>
-                        <td>${t.title}</td>
-                        <td>${t.service}</td>
-                        <td><span class="badge ${badgeClass}">${t.priority}</span></td>
-                        <td>${t.status}</td>
-                        <td>${t.date}</td>
+                        <td>${u.nome}</td>
+                        <td>${u.email}</td>
+                        <td>${u.cargo}</td>
+                        <td style="font-family:monospace; color:#ccc;">${u.senha}</td>
+                        <td><span class="btn-delete" onclick="deletarUsuario(${index})">Excluir</span></td>
                     </tr>
                 `;
-
-                const rowList = `
-                    <tr>
-                        <td><span style="color:#fff; font-weight:bold;">${t.id}</span></td>
-                        <td>${t.requester}</td>
-                        <td>${t.title}</td>
-                        <td>${t.service}</td>
-                        <td><span class="badge ${badgeClass}">${t.priority}</span></td>
-                        <td>${t.status}</td>
-                    </tr>
-                `;
-
-                tableDash.innerHTML += rowDash;
-                tableList.innerHTML += rowList;
+                tbody.innerHTML += row;
             });
+
+            abrirModal('modal-users');
         }
 
-        // 5. ATUALIZAR KPI
-        function atualizarKPIs() {
-            document.getElementById('kpi-abertos').innerText = ticketsDB.length;
-        }
-
-        // 6. CRIAR NOVO CHAMADO (A MÁGICA)
-        function criarChamado() {
-            // Pega valores do form
-            const titulo = document.getElementById('ticket-title').value;
-            const servico = document.getElementById('ticket-service').value;
-            const prioridade = document.getElementById('ticket-priority').value;
-            
-            if(!titulo) { alert("Preencha o título!"); return; }
-
-            // Cria objeto
-            const novoTicket = {
-                id: 'INC-' + Math.floor(Math.random() * 9000 + 1000), // ID Aleatório
-                title: titulo,
-                service: servico,
-                priority: prioridade,
-                status: 'Novo',
-                date: 'Agora',
-                requester: 'Kaleb Nunes' // Pega do usuário logado
-            };
-
-            // Salva no Array e no LocalStorage
-            ticketsDB.unshift(novoTicket); // Adiciona no começo
-            localStorage.setItem('kns_tickets', JSON.stringify(ticketsDB));
-
-            // Atualiza a tela
-            renderizarTabelas();
-            atualizarKPIs();
-            fecharModais();
-            showToast("Chamado " + novoTicket.id + " criado com sucesso!");
-
-            // Limpa form
-            document.getElementById('ticket-title').value = '';
-            document.getElementById('ticket-desc').value = '';
+        function deletarUsuario(index) {
+            if(confirm('Tem certeza que deseja apagar este usuário do banco?')) {
+                let users = JSON.parse(localStorage.getItem('kns_db_users'));
+                users.splice(index, 1); // Remove
+                localStorage.setItem('kns_db_users', JSON.stringify(users)); // Salva
+                abrirModalUsers(); // Recarrega tabela
+                showToast("Usuário removido.");
+            }
         }
 
         // --- SISTEMA UI ---
-        function navigate(viewId) {
-            document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('view-' + viewId).classList.add('active');
-            // Fecha menu se aberto
-            document.getElementById('user-menu').style.display = 'none';
-        }
-
         function toggleMenu() {
             const menu = document.getElementById('user-menu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function logout() {
+            localStorage.removeItem('kns_session');
+            window.location.href = 'index.html';
         }
 
         function abrirModal(id) {
@@ -352,11 +228,6 @@
 
         function fecharModais() {
             document.querySelectorAll('.overlay').forEach(el => el.style.display = 'none');
-        }
-
-        function logout() {
-            localStorage.removeItem('kns_session');
-            window.location.href = 'index.html';
         }
 
         function showToast(msg) {
